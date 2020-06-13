@@ -23,7 +23,6 @@ Create `src/auth_config.json` file and populate following:
   "domain": "{YOUR AUTH0 DOMAIN}",
   "clientId": "{YOUR AUTH0 CLIENT ID}"
 }
-```
 
 ### Compiles and hot-reloads for development
 
