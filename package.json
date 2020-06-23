@@ -1,41 +1,15 @@
 {
-  "name": "sewak-app",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
+  "name": "Sewak-App",
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": "https://github.com/xAtishayx/Sewak-App.git",
+  "author": "blurry-x-face <rishabhshukla1999@gmail.com>, xAtishayx <atishay.srivastava.10@gmail.com>",
+  "license": "ISC",
   "dependencies": {
-    "@auth0/auth0-spa-js": "^1.0.2",
-    "@fortawesome/fontawesome-svg-core": "^1.2.17",
-    "@fortawesome/free-solid-svg-icons": "^5.8.1",
-    "@fortawesome/react-fontawesome": "^0.1.4",
-    "express": "^4.16.4",
-    "highlight.js": "^9.15.6",
-    "morgan": "^1.9.1",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-router-dom": "^5.0.0",
-    "react-scripts": "^3.4.0",
-    "reactstrap": "^8.0.0"
-  },
-  "devDependencies": {},
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.19",
+    "passport": "^0.4.1",
+    "passport-google-oauth2": "^0.2.0"
   }
 }
