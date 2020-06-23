@@ -4,12 +4,25 @@ const passport = require("passport");
 require("./db/mongoose");
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const keys = require("./config/keys");
+const cookieSession = require("cookie-session");
+const cookieParser = require("cookie-parser"); // parse cookie header
 
 const User = require("./models/user");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(
+  cookieSession({
+    name: "session",
+    keys: [keys.COOKIE_KEY],
+    maxAge: 24 * 60 * 60 * 100,
+  })
+);
+
+// parse cookies
+app.use(cookieParser());
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -23,7 +36,7 @@ passport.use(
     {
       clientID: keys.googleClientID,
       clientSecret: keys.googleClientSecret,
-      callbackURL: "/auth/google/callback",
+      callbackURL: "/api/auth/google/callback",
       passReqToCallback: true,
     },
     function (request, accessToken, refreshToken, profile, done) {
@@ -58,14 +71,14 @@ passport.use(
 );
 
 app.get(
-  "/auth/google",
+  "/api/auth/google",
   passport.authenticate("google", {
     scope: ["profile", "email"],
   })
 );
 
 app.get(
-  "/auth/google/callback",
+  "/api/auth/google/callback",
   passport.authenticate("google", { failureRedirect: "/" }),
   (req, res) => {
     const token = req.user.accessToken[req.user.accessToken.length - 1];
