@@ -7,6 +7,7 @@ import { TextField, Paper } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { Context } from "../Store";
 import image from "../assets/authenticate.svg";
+import { Redirect } from "react-router";
 
 export default function AlertDialogSlide(props) {
   const [email, setEmail] = useState("");
@@ -14,7 +15,7 @@ export default function AlertDialogSlide(props) {
   const [error, setError] = useState(undefined);
   const [cookies, setCookie] = useCookies(["token"]);
   const [state, dispatch] = useContext(Context);
-
+  const [redirect, setRedirect] = useState(false);
   useEffect(() => {}, []);
 
   const verifyLogin = () => {
@@ -29,16 +30,16 @@ export default function AlertDialogSlide(props) {
           return;
         }
         setCookie("token", response.data.token, { path: "/" });
-        console.log(state);
         dispatch({
           type: "LOGIN",
           payload: { isAuth: true, userData: response.data.user },
         });
         console.log(state);
-        props.history.push(`/`);
+        console.log(state, "dasdqwas");
+        // window.location = `/`;
+        setRedirect(true);
       })
       .catch((err) => {
-        // console.log(err);
         if (
           err &&
           err.response &&
@@ -56,6 +57,7 @@ export default function AlertDialogSlide(props) {
     setPassword(event.target.value);
   };
 
+  if (redirect) return <Redirect to="/" />;
   return (
     <div>
       <div className="absolute-center">

@@ -30,7 +30,8 @@ const Reducer = (state, action) => {
       return {
         ...state,
         isAuth: true,
-        userData: action.payload,
+        userData: action.payload.userData,
+        isHospital: action.payload.isHospital,
       };
     case "SET_ERROR":
       return {

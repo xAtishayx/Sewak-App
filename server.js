@@ -7,6 +7,8 @@ const withAuth = require("./middlewares/auth");
 require("./db/mongoose");
 const user = require("./routes/user");
 const hospital = require("./routes/hospital");
+const Hospital = require("./models/Hospital");
+const User = require("./models/User");
 
 const app = express();
 app.use(express.json());
@@ -22,7 +24,32 @@ app.use("/api/user", user);
 app.use("/api/hospital", hospital);
 
 app.get("/api/checkToken", withAuth, function (req, res) {
-  res.sendStatus(200);
+  const { email } = req;
+  User.findOne({ email }, function (err, user) {
+    if (err) {
+      console.error(err);
+      res.status(500).json({
+        error: "Internal error please try again",
+      });
+    } else if (!user) {
+      Hospital.findOne({ email }, (err, hospital) => {
+        if (err) {
+          console.error(err);
+          res.status(500).json({
+            error: "Internal error please try again",
+          });
+        } else if (!hospital) {
+          res.status(401).json({
+            error: "Authenticate first",
+          });
+        } else if (hospital) {
+          res.json({ hospital, isHospital: true });
+        }
+      });
+    } else if (user) {
+      res.json({ user, isHospital: false });
+    }
+  });
 });
 
 app.get("/api/", withAuth, function (req, res) {

@@ -6,6 +6,7 @@ import { TextField, Paper } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { Context } from "../Store";
 import image from "../assets/register.svg";
+import { Redirect } from "react-router";
 
 export default function AlertDialogSlide(props) {
   const [email, setEmail] = useState("");
@@ -13,6 +14,7 @@ export default function AlertDialogSlide(props) {
   const [error, setError] = useState(undefined);
   const [cookies, setCookie] = useCookies(["token"]);
   const [state, dispatch] = useContext(Context);
+  const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {}, []);
 
@@ -33,8 +35,8 @@ export default function AlertDialogSlide(props) {
           type: "REGISTER",
           payload: { isAuth: true, userData: response.data.user },
         });
-        console.log(state);
-        props.history.push(`/`);
+
+        setRedirect(true);
       })
       .catch((err) => {
         // console.log(err);
@@ -54,6 +56,8 @@ export default function AlertDialogSlide(props) {
   const onPasswordInputChange = (event) => {
     setPassword(event.target.value);
   };
+
+  if (redirect) return <Redirect to="/" />;
 
   return (
     <div>
