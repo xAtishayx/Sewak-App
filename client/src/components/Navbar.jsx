@@ -32,18 +32,13 @@ export default function ButtonAppBar() {
   }, []);
 
   const handleClick = () => {
-    document.cookie.split(";").forEach((c) => {
-      document.cookie = c
-        .replace(/^ +/, "")
-        .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
-    });
     // window.location = "/";
     console.log("HELL");
   };
 
   return (
     <div className={classes.root + " nav-wrapper"}>
-      <AppBar position="static" style={{ backgroundColor: "#007d38" }}>
+      <AppBar position="static" style={{ backgroundColor: "#4573b9" }}>
         <Toolbar>
           <IconButton
             edge="start"

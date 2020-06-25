@@ -5,8 +5,69 @@ import { Typography } from "@material-ui/core";
 import { Rating, Skeleton } from "@material-ui/lab";
 import { Button } from "@material-ui/core";
 import AddIcCallIcon from "@material-ui/icons/AddIcCall";
+import Upvote from "@material-ui/icons/ArrowUpward";
+import Downvote from "@material-ui/icons/ArrowDownward";
 
 export default function LetterAvatars() {
+  const randomNumberBetweenZeroAnd = (a) => {
+    return Math.floor(Math.random() * a);
+  };
+  const commentData = [
+    {
+      name: "blurry",
+      comment:
+        "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Sunt ea nostrud enim laboris irure.",
+      date: "12-06-2020",
+    },
+    {
+      name: "venom",
+      comment:
+        "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Duis proident veniam aliquip mollit adipisicing officia.",
+      date: "12-06-2020",
+    },
+    {
+      name: "Light",
+      comment:
+        "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Id quis nisi sit voluptate occaecat quis irure eu labore.",
+      date: "12-06-2020",
+    },
+    {
+      name: "veron",
+      comment:
+        "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Sit minim ullamco deserunt in incididunt aute ipsum esse.",
+      date: "12-06-2020",
+    },
+    {
+      name: "hayabusa",
+      comment:
+        "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Sint commodo nulla tempor laborum do pariatur elit reprehenderit ad Lorem aute anim excepteur.",
+      date: "12-06-2020",
+    },
+    {
+      name: "bugati",
+      comment:
+        "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Esse ut anim eiusmod ex irure enim non officia anim.",
+      date: "12-06-2020",
+    },
+    {
+      name: "kallen",
+      comment:
+        "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Ex irure consectetur minim aliqua.",
+      date: "12-06-2020",
+    },
+    {
+      name: "lelouch",
+      comment:
+        "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Sunt sint aute dolor labore incididunt reprehenderit in exercitation.",
+      date: "12-06-2020",
+    },
+    {
+      name: "kissanime",
+      comment:
+        "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Excepteur anim labore incididunt laboris ea officia nulla irure.",
+      date: "12-06-2020",
+    },
+  ];
   return (
     <div className="profile-page-wrapper">
       <Paper style={{ padding: 20 }}>
@@ -45,26 +106,57 @@ export default function LetterAvatars() {
           </div>
         </div>
       </Paper>
-      <Paper style={{ padding: 20, marginTop: 60 }}>
-        <Skeleton />
-        <Skeleton animation={false} />
-        <Skeleton animation="wave" />
-      </Paper>
-      <Paper style={{ padding: 20, marginTop: 30 }}>
-        <Skeleton />
-        <Skeleton animation={false} />
-        <Skeleton animation="wave" />
-      </Paper>
-      <Paper style={{ padding: 20, marginTop: 30 }}>
-        <Skeleton />
-        <Skeleton animation={false} />
-        <Skeleton animation="wave" />
-      </Paper>
-      <Paper style={{ padding: 20, marginTop: 30 }}>
-        <Skeleton />
-        <Skeleton animation={false} />
-        <Skeleton animation="wave" />
-      </Paper>
+      {/* https://api.adorable.io/avatars/282/${v.name}.png */}
+      {commentData.map((v, i) => (
+        <Paper
+          key={i}
+          style={{
+            padding: "20px 3vw",
+            marginTop: 60,
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <div
+            style={{
+              padding: "3px 20px",
+              borderRight: "0.5px solid #0000005e",
+            }}
+          >
+            <Avatar
+              style={{
+                backgroundColor: "#5b9bd5",
+                width: "55px",
+                height: "55px",
+              }}
+              src={`https://api.adorable.io/avatars/282/${v.name}.png`}
+            />
+            <Typography variant="subtitle2">{v.name}</Typography>
+            <Typography variant="subtitle2">{v.date}</Typography>
+          </div>
+          <div>
+            <Typography
+              style={{
+                padding: "3px 10px",
+              }}
+              variant="subtitle1"
+            >
+              {v.comment}
+            </Typography>
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <Button>
+                <Upvote />
+                {randomNumberBetweenZeroAnd(20)}
+              </Button>
+              <Button>
+                <Downvote />
+                {randomNumberBetweenZeroAnd(10)}
+              </Button>
+            </div>
+          </div>
+        </Paper>
+      ))}
     </div>
   );
 }
