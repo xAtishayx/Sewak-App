@@ -1,12 +1,12 @@
 import React from "react";
 import Avatar from "@material-ui/core/Avatar";
 import { Paper, Icon } from "@material-ui/core";
-import { Typography } from "@material-ui/core";
+import { Typography, TextField } from "@material-ui/core";
 import { Rating, Skeleton } from "@material-ui/lab";
 import { Button } from "@material-ui/core";
-import AddIcCallIcon from "@material-ui/icons/AddIcCall";
 import Upvote from "@material-ui/icons/ArrowUpward";
 import Downvote from "@material-ui/icons/ArrowDownward";
+import BookAnAppointment from "./BookAnAppointemnt";
 
 export default function LetterAvatars() {
   const randomNumberBetweenZeroAnd = (a) => {
@@ -96,13 +96,7 @@ export default function LetterAvatars() {
             nisi in occaecat pariatur.
           </Typography>
           <div className="profile-btn">
-            <Button
-              variant="contained"
-              color="#66bb6a"
-              endIcon={<AddIcCallIcon />}
-            >
-              Book an Appointment
-            </Button>
+            <BookAnAppointment />
           </div>
         </div>
       </Paper>
@@ -157,6 +151,34 @@ export default function LetterAvatars() {
           </div>
         </Paper>
       ))}
+      <Paper
+        style={{
+          padding: "20px 3vw",
+          margin: "60px 0px",
+        }}
+      >
+        <TextField
+          id="outlined-number"
+          label="Review"
+          type="textarea"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          fullWidth
+          variant="outlined"
+        />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            marginTop: "20px",
+          }}
+        >
+          <Button color="#64b5f6" variant="contained">
+            Review
+          </Button>
+        </div>
+      </Paper>
     </div>
   );
 }
