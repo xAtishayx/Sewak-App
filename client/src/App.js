@@ -6,6 +6,8 @@ import UserAuth from "./components/UserAuth";
 import HospitalAuth from "./components/HospitalAuth";
 import withAuth from "./withAuth";
 import Navbar from "./components/Navbar";
+import HospitalProfile from "./components/HospitalProfile";
+
 import { Context } from "./Store";
 
 export default function App() {
@@ -41,6 +43,7 @@ export default function App() {
         <Route path="/" exact component={Home} />
         <Route path="/user/auth" exact component={UserAuth} />
         <Route path="/hospital/auth" exact component={HospitalAuth} />
+        <Route path="/hospital/profile/:id" exact component={HospitalProfile} />
       </Switch>
     </>
   );

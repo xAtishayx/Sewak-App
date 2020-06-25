@@ -4,6 +4,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+a {
+  text-decoration: none;
+}
+
 .nav-wrapper a {
   color: aliceblue;
   text-decoration: none;
@@ -28,4 +32,17 @@ body {
   margin-top: 50px;
   display: flex;
   justify-content: space-around;
+}
+.profile-page-wrapper {
+  margin: 30px 30vw;
+}
+.profile-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+.profile-btn {
+  display: flex;
+  justify-content: flex-end;
 }

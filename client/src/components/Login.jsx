@@ -35,8 +35,6 @@ export default function AlertDialogSlide(props) {
           payload: { isAuth: true, userData: response.data.user },
         });
         console.log(state);
-        console.log(state, "dasdqwas");
-        // window.location = `/`;
         setRedirect(true);
       })
       .catch((err) => {

@@ -16,6 +16,7 @@ import ShareIcon from "@material-ui/icons/Share";
 import AddIcCallIcon from "@material-ui/icons/AddIcCall";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,37 +46,39 @@ export default function RecipeReviewCard({ props }) {
   const classes = useStyles();
 
   return (
-    <Card className={classes.root}>
-      <CardHeader
-        avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            {name[0]}
-          </Avatar>
-        }
-        // action={
-        //   {
-        /* <IconButton aria-label="settings">
+    <Link to={"/hospital/profile/1"}>
+      <Card className={classes.root}>
+        <CardHeader
+          avatar={
+            <Avatar aria-label="recipe" className={classes.avatar}>
+              {name[0]}
+            </Avatar>
+          }
+          // action={
+          //   {
+          /* <IconButton aria-label="settings">
             <MoreVertIcon />
           </IconButton> */
-        //   }
-        // }
-        title={name}
-        subheader={Math.floor(Math.random() * 30) + " kms away"}
-      />
-      <CardMedia className={classes.media} image={image} title={name} />
-      <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {desc}
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <AddIcCallIcon />
-        </IconButton>
-      </CardActions>
-    </Card>
+          //   }
+          // }
+          title={name}
+          subheader={Math.floor(Math.random() * 30) + " kms away"}
+        />
+        <CardMedia className={classes.media} image={image} title={name} />
+        <CardContent>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {desc}
+          </Typography>
+        </CardContent>
+        <CardActions disableSpacing>
+          <IconButton aria-label="add to favorites">
+            <FavoriteIcon />
+          </IconButton>
+          <IconButton aria-label="share">
+            <AddIcCallIcon />
+          </IconButton>
+        </CardActions>
+      </Card>
+    </Link>
   );
 }

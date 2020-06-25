@@ -8,6 +8,7 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import { NavLink } from "react-router-dom";
 import { Context } from "../Store";
+import { useCookies } from "react-cookie";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,11 +24,22 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ButtonAppBar() {
   const classes = useStyles();
+  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
   const [state, dispatch] = useContext(Context);
 
   useEffect(() => {
     console.log(window.location.pathname.includes("hospital"));
   }, []);
+
+  const handleClick = () => {
+    document.cookie.split(";").forEach((c) => {
+      document.cookie = c
+        .replace(/^ +/, "")
+        .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+    });
+    // window.location = "/";
+    console.log("HELL");
+  };
 
   return (
     <div className={classes.root + " nav-wrapper"}>
@@ -52,7 +64,11 @@ export default function ButtonAppBar() {
             </NavLink>
           )}
           |
-          {state.isAuth ? null : (
+          {state.isAuth ? (
+            <Button onClick={handleClick} color="inherit">
+              Logout
+            </Button>
+          ) : (
             <NavLink to="/hospital/auth">
               <Button color="inherit">Login as Hospital</Button>{" "}
             </NavLink>
