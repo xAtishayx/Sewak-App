@@ -5,6 +5,8 @@ const initialState = {
   isAuth: false,
   email: null,
   error: null,
+  isHospital: false,
+  hospitalData: {},
   userData: {},
 };
 

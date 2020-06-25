@@ -6,7 +6,7 @@ import { useCookies } from "react-cookie";
 import { TextField, Paper } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { Context } from "../Store";
-import image from "../assets/authenticate.svg";
+import image from "../assets/hospital_login.svg";
 
 export default function AlertDialogSlide(props) {
   const [email, setEmail] = useState("");
@@ -19,7 +19,7 @@ export default function AlertDialogSlide(props) {
 
   const verifyLogin = () => {
     axios
-      .post("/api/user/login", {
+      .post("/api/hospital/login", {
         email,
         password,
       })
@@ -32,7 +32,7 @@ export default function AlertDialogSlide(props) {
         console.log(state);
         dispatch({
           type: "LOGIN",
-          payload: { isAuth: true, userData: response.data.user },
+          payload: { isAuth: true, email: response.data.email },
         });
         console.log(state);
         props.history.push(`/`);

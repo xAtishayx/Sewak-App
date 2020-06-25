@@ -31,7 +31,7 @@ export default function AlertDialogSlide(props) {
         console.log(state);
         dispatch({
           type: "REGISTER",
-          payload: { isAuth: true, email: response.data.email },
+          payload: { isAuth: true, userData: response.data.user },
         });
         console.log(state);
         props.history.push(`/`);

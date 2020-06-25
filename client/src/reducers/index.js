@@ -3,14 +3,28 @@ const Reducer = (state, action) => {
     case "LOGIN":
       return {
         ...state,
-        email: action.payload.email,
+        userData: action.payload.userData,
         isAuth: action.payload.isAuth,
       };
     case "REGISTER":
       return {
         ...state,
         isAuth: action.payload.isAuth,
-        email: action.payload.email,
+        userData: action.payload.userData,
+      };
+    case "HOSPITAL_REGISTER":
+      return {
+        ...state,
+        isAuth: action.payload.isAuth,
+        hospital: action.payload.hospital,
+        isHospital: action.payload.isHospital,
+      };
+    case "HOSPITAL_LOGIN":
+      return {
+        ...state,
+        isAuth: action.payload.isAuth,
+        hospital: action.payload.hospital,
+        isHospital: action.payload.isHospital,
       };
     case "VERIFY_AUTH":
       return {

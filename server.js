@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const withAuth = require("./middlewares/auth");
 require("./db/mongoose");
 const user = require("./routes/user");
+const hospital = require("./routes/hospital");
 
 const app = express();
 app.use(express.json());
@@ -18,6 +19,7 @@ app.get("/", function (req, res) {
 });
 
 app.use("/api/user", user);
+app.use("/api/hospital", hospital);
 
 app.get("/api/checkToken", withAuth, function (req, res) {
   res.sendStatus(200);

@@ -4,6 +4,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.nav-wrapper a {
+  color: aliceblue;
+  text-decoration: none;
+}
+
 .auth-tab-container {
   position: absolute;
   top: 50%;
@@ -18,4 +23,9 @@ body {
 }
 .MuiTabs-flexContainer {
   justify-content: space-between;
+}
+.hospital-card-wrapper {
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-around;
 }
