@@ -1,73 +1,76 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import { Paper, Icon } from "@material-ui/core";
 import { Typography, TextField } from "@material-ui/core";
-import { Rating, Skeleton } from "@material-ui/lab";
+import { Rating } from "@material-ui/lab";
 import { Button } from "@material-ui/core";
 import Upvote from "@material-ui/icons/ArrowUpward";
 import Downvote from "@material-ui/icons/ArrowDownward";
 import BookAnAppointment from "./BookAnAppointemnt";
 
+const commentData = [
+  {
+    name: "blurry",
+    comment:
+      "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Sunt ea nostrud enim laboris irure.",
+    date: "12-06-2020",
+  },
+  {
+    name: "venom",
+    comment:
+      "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Duis proident veniam aliquip mollit adipisicing officia.",
+    date: "12-06-2020",
+  },
+  {
+    name: "Light",
+    comment:
+      "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Id quis nisi sit voluptate occaecat quis irure eu labore.",
+    date: "12-06-2020",
+  },
+  {
+    name: "veron",
+    comment:
+      "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Sit minim ullamco deserunt in incididunt aute ipsum esse.",
+    date: "12-06-2020",
+  },
+  {
+    name: "hayabusa",
+    comment:
+      "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Sint commodo nulla tempor laborum do pariatur elit reprehenderit ad Lorem aute anim excepteur.",
+    date: "12-06-2020",
+  },
+  {
+    name: "bugati",
+    comment:
+      "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Esse ut anim eiusmod ex irure enim non officia anim.",
+    date: "12-06-2020",
+  },
+  {
+    name: "kallen",
+    comment:
+      "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Ex irure consectetur minim aliqua.",
+    date: "12-06-2020",
+  },
+  {
+    name: "lelouch",
+    comment:
+      "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Sunt sint aute dolor labore incididunt reprehenderit in exercitation.",
+    date: "12-06-2020",
+  },
+  {
+    name: "kissanime",
+    comment:
+      "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Excepteur anim labore incididunt laboris ea officia nulla irure.",
+    date: "12-06-2020",
+  },
+];
+
 export default function LetterAvatars() {
+  const [reviewComment, setReviewComment] = useState("");
+  const [commentData2, setCommentData] = useState(commentData);
   const randomNumberBetweenZeroAnd = (a) => {
     return Math.floor(Math.random() * a);
   };
-  const commentData = [
-    {
-      name: "blurry",
-      comment:
-        "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Sunt ea nostrud enim laboris irure.",
-      date: "12-06-2020",
-    },
-    {
-      name: "venom",
-      comment:
-        "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Duis proident veniam aliquip mollit adipisicing officia.",
-      date: "12-06-2020",
-    },
-    {
-      name: "Light",
-      comment:
-        "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Id quis nisi sit voluptate occaecat quis irure eu labore.",
-      date: "12-06-2020",
-    },
-    {
-      name: "veron",
-      comment:
-        "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Sit minim ullamco deserunt in incididunt aute ipsum esse.",
-      date: "12-06-2020",
-    },
-    {
-      name: "hayabusa",
-      comment:
-        "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Sint commodo nulla tempor laborum do pariatur elit reprehenderit ad Lorem aute anim excepteur.",
-      date: "12-06-2020",
-    },
-    {
-      name: "bugati",
-      comment:
-        "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Esse ut anim eiusmod ex irure enim non officia anim.",
-      date: "12-06-2020",
-    },
-    {
-      name: "kallen",
-      comment:
-        "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Ex irure consectetur minim aliqua.",
-      date: "12-06-2020",
-    },
-    {
-      name: "lelouch",
-      comment:
-        "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Sunt sint aute dolor labore incididunt reprehenderit in exercitation.",
-      date: "12-06-2020",
-    },
-    {
-      name: "kissanime",
-      comment:
-        "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Excepteur anim labore incididunt laboris ea officia nulla irure.",
-      date: "12-06-2020",
-    },
-  ];
   return (
     <div className="profile-page-wrapper">
       <Paper style={{ padding: 20 }}>
@@ -101,7 +104,7 @@ export default function LetterAvatars() {
         </div>
       </Paper>
       {/* https://api.adorable.io/avatars/282/${v.name}.png */}
-      {commentData.map((v, i) => (
+      {commentData2.map((v, i) => (
         <Paper
           key={i}
           style={{
@@ -166,6 +169,8 @@ export default function LetterAvatars() {
           }}
           fullWidth
           variant="outlined"
+          value={reviewComment}
+          onChange={(e) => setReviewComment(e.target.value)}
         />
         <div
           style={{
@@ -174,7 +179,24 @@ export default function LetterAvatars() {
             marginTop: "20px",
           }}
         >
-          <Button color="#64b5f6" variant="contained">
+          <Button
+            color="#64b5f6"
+            variant="contained"
+            onClick={() => {
+              commentData.unshift({
+                name: "Blurry",
+                comment: reviewComment,
+                date: "27-06-2020",
+              });
+              setCommentData(commentData);
+              setReviewComment("");
+              window.scrollTo({
+                top: 100,
+                left: 100,
+                behavior: "smooth",
+              });
+            }}
+          >
             Review
           </Button>
         </div>
