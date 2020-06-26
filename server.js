@@ -40,7 +40,7 @@ app.get("/api/checkToken", withAuth, function (req, res) {
           });
         } else if (!hospital) {
           res.status(401).json({
-            error: "Authenticate first",
+            message: "Authenticate first",
           });
         } else if (hospital) {
           res.json({ hospital, isHospital: true });

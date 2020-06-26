@@ -25,6 +25,7 @@ export default function App() {
               isAuth: true,
               userData: res.data.user,
               isHospital: res.data.isHospital,
+              hospitalData: res.data.hospital,
             },
           });
         } else {

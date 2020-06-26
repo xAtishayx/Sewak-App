@@ -41,13 +41,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function RecipeReviewCard({ props }) {
-  const { name, desc, address, image } = props;
+export default function HospitalCards({ props }) {
+  const { name, desc, address, image, link } = props;
   const classes = useStyles();
 
   return (
-    <Link to={"/hospital/profile/1"}>
-      <Card className={classes.root}>
+    <Link to={`/hospital/profile/${link}`}>
+      <Card className={classes.root} style={{ width: 345 }} width="345px">
         <CardHeader
           avatar={
             <Avatar aria-label="recipe" className={classes.avatar}>

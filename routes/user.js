@@ -6,17 +6,17 @@ const withAuth = require("../middlewares/auth");
 const router = express.Router();
 
 router.post("/register", function (req, res) {
-  const { email, password } = req.body;
-  const user = new User({ email, password });
+  const { email, password, name } = req.body;
+  const user = new User({ email, password, name });
   user.save(function (err, doc) {
     if (err) {
-      res.status(500).send("Error registering new user please try again.");
+      res.status(500).send({ message: err });
     } else {
       const payload = { email };
       const token = jwt.sign(payload, "secret", {
         expiresIn: "1h",
       });
-      res.cookie("token", token, { httpOnly: true }).json({ token, user });
+      res.cookie("token", token).json({ token, user });
     }
   });
 });
@@ -49,7 +49,7 @@ router.post("/login", function (req, res) {
           const token = jwt.sign(payload, "secret", {
             expiresIn: "1h",
           });
-          res.cookie("token", token, { httpOnly: true }).json({ token, user });
+          res.cookie("token", token).json({ token, user });
         }
       });
     }

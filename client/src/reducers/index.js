@@ -16,14 +16,14 @@ const Reducer = (state, action) => {
       return {
         ...state,
         isAuth: action.payload.isAuth,
-        hospital: action.payload.hospital,
+        hospitalData: action.payload.hospitalData,
         isHospital: action.payload.isHospital,
       };
     case "HOSPITAL_LOGIN":
       return {
         ...state,
         isAuth: action.payload.isAuth,
-        hospital: action.payload.hospital,
+        hospitalData: action.payload.hospitalData,
         isHospital: action.payload.isHospital,
       };
     case "VERIFY_AUTH":
@@ -32,6 +32,7 @@ const Reducer = (state, action) => {
         isAuth: true,
         userData: action.payload.userData,
         isHospital: action.payload.isHospital,
+        hospitalData: action.payload.hospitalData
       };
     case "SET_ERROR":
       return {

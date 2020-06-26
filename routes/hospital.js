@@ -35,13 +35,14 @@ router.post("/register", function (req, res) {
       const token = jwt.sign(payload, "secret", {
         expiresIn: "1h",
       });
-      res.cookie("token", token, { httpOnly: true }).json({ token, hospital });
+      res.cookie("token", token).json({ token, hospital });
     }
   });
 });
 
 router.post("/login", function (req, res) {
   const { email, password } = req.body;
+  console.log(password);
   Hospital.findOne({ email }, function (err, hospital) {
     if (err) {
       console.error(err);
@@ -55,6 +56,7 @@ router.post("/login", function (req, res) {
     } else {
       hospital.isCorrectPassword(password, function (err, same) {
         if (err) {
+          console.log(err);
           res.status(500).json({
             error: "Internal error please try again",
           });
@@ -68,9 +70,7 @@ router.post("/login", function (req, res) {
           const token = jwt.sign(payload, "secret", {
             expiresIn: "1h",
           });
-          res
-            .cookie("token", token, { httpOnly: true })
-            .json({ token, hospital });
+          res.cookie("token", token).json({ token, hospital });
         }
       });
     }
@@ -78,12 +78,21 @@ router.post("/login", function (req, res) {
 });
 
 router.get("/all", (req, res) => {
-  Hospital.find().then((Hospital) => res.json(Hospital));
+  Hospital.find()
+    .select("-password")
+    .then((Hospital) => res.json(Hospital));
   // res.send({});
 });
 
 router.get("/protected", withAuth, function (req, res) {
   res.send({ message: "Auth Ok!" });
+});
+
+router.get("/profile/:id", (req, res) => {
+  Hospital.findById(req.params.id, (err, profile) => {
+    if (err) res.send({ message: err });
+    res.send({ data: profile });
+  });
 });
 
 module.exports = router;

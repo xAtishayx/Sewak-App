@@ -32,13 +32,16 @@ export default function ButtonAppBar() {
   }, []);
 
   const handleClick = () => {
-    // window.location = "/";
-    console.log("HELL");
+    setCookie("token", "", { path: "/", expires: 0 });
+    window.location = "/";
   };
 
   return (
     <div className={classes.root + " nav-wrapper"}>
-      <AppBar position="static" style={{ backgroundColor: "#4573b9" }}>
+      <AppBar
+        position="static"
+        style={{ backgroundColor: state.isHospital ? "#b23d10" : "#4573b9" }}
+      >
         <Toolbar>
           <IconButton
             edge="start"
@@ -52,7 +55,20 @@ export default function ButtonAppBar() {
             <NavLink to="/">Sewak</NavLink>
           </Typography>
           {state.isAuth ? (
-            <Button color="inherit">Logged in as {state.userData.email}</Button>
+            <NavLink
+              to={
+                state.isHospital
+                  ? `/hospital/profile/${state.hospitalData._id}`
+                  : `/user/profile/${state.userData._id}`
+              }
+            >
+              <Button color="inherit">
+                Logged in as{" "}
+                {state.isHospital
+                  ? state.hospitalData.name
+                  : state.userData.email}
+              </Button>
+            </NavLink>
           ) : (
             <NavLink to="/user/auth">
               <Button color="inherit">Login as User</Button>{" "}

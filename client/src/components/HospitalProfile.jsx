@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import { Paper, Icon } from "@material-ui/core";
 import { Typography, TextField } from "@material-ui/core";
@@ -7,6 +7,8 @@ import { Button } from "@material-ui/core";
 import Upvote from "@material-ui/icons/ArrowUpward";
 import Downvote from "@material-ui/icons/ArrowDownward";
 import BookAnAppointment from "./BookAnAppointemnt";
+import axios from "axios";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const commentData = [
   {
@@ -65,44 +67,75 @@ const commentData = [
   },
 ];
 
-export default function LetterAvatars() {
+export default function LetterAvatars({ match }) {
+  console.log(match.params.id);
   const [reviewComment, setReviewComment] = useState("");
+  const [profileLoading, setProfileLoading] = useState(true);
+  const [profile, setProfile] = useState({});
   const [commentData2, setCommentData] = useState(commentData);
   const randomNumberBetweenZeroAnd = (a) => {
     return Math.floor(Math.random() * a);
   };
+
+  useEffect(() => {
+    axios
+      .get(`/api/hospital/profile/${match.params.id}`)
+      .then((res) => {
+        if (res.status !== 200) return;
+        console.log(res.data);
+        const profile = res.data;
+        setProfile(profile);
+        setTimeout(() => {
+          console.log(profile);
+          setProfileLoading(false);
+        }, 1000);
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
   return (
     <div className="profile-page-wrapper">
-      <Paper style={{ padding: 20 }}>
-        <div className="profile-page-header">
-          <Avatar
-            style={{
-              backgroundColor: "#5b9bd5",
-              width: "55px",
-              height: "55px",
-            }}
-          >
-            H
-          </Avatar>
-          <Typography style={{ color: "#000000b5" }} variant="h5">
-            Hospital for Physically challenged
-          </Typography>
+      {profileLoading ? (
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          {/* <span style={{ marginRight: 15, fontSize: 18 }}>Loading profile...</span>{" "} */}
+          <CircularProgress />
         </div>
-        <div className="profile-page-body">
-          <div className="profile-page-body-subheading">
-            {" "}
-            <Typography variant="h6">About the Hospital</Typography>{" "}
-            <Rating name="read-only" value={4} readOnly />
+      ) : (
+        <Paper style={{ padding: 20 }}>
+          <div className="profile-page-header">
+            <Avatar
+              style={{
+                backgroundColor: "#5b9bd5",
+                width: "55px",
+                height: "55px",
+              }}
+            >
+              {profile.data.name[0]}
+            </Avatar>
+            <Typography style={{ color: "#000000b5" }} variant="h5">
+              {profile.data.name}
+            </Typography>
           </div>
-          <Typography variant="subtitle1">
-            Ullamco esse anim nisi ullamco labore amet dolore exercitation qui
-            nisi in occaecat pariatur.
-          </Typography>
-          <div className="profile-btn">
-            <BookAnAppointment />
+          <div className="profile-page-body">
+            <div className="profile-page-body-subheading">
+              {" "}
+              <Typography variant="h6">About the Hospital</Typography>{" "}
+              <Rating name="read-only" value={4} readOnly />
+            </div>
+            <Typography variant="subtitle1">{profile.data.description}</Typography>
+            <div className="profile-btn">
+              <BookAnAppointment />
+            </div>
           </div>
-        </div>
-      </Paper>
+        </Paper>
+      )}
       {/* https://api.adorable.io/avatars/282/${v.name}.png */}
       {commentData2.map((v, i) => (
         <Paper
