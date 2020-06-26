@@ -9,6 +9,7 @@ import Downvote from "@material-ui/icons/ArrowDownward";
 import BookAnAppointment from "./BookAnAppointemnt";
 import axios from "axios";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import HospitalInfo from "./HospitalInfo";
 
 const commentData = [
   {
@@ -129,9 +130,12 @@ export default function LetterAvatars({ match }) {
               <Typography variant="h6">About the Hospital</Typography>{" "}
               <Rating name="read-only" value={4} readOnly />
             </div>
-            <Typography variant="subtitle1">{profile.data.description}</Typography>
+            <Typography variant="subtitle1">
+              {profile.data.description}
+            </Typography>
             <div className="profile-btn">
               <BookAnAppointment />
+              <HospitalInfo props={profile} />
             </div>
           </div>
         </Paper>

@@ -15,6 +15,15 @@ const HospitalSchema = new mongoose.Schema({
   type: [{ type: String }],
   description: { type: String, required: true },
   image: { type: String },
+  totalPatients: { type: Number, default: 0 },
+  testsAvailable: { type: Number, default: 0 },
+  isCovidDedicated: { type: Boolean, default: false },
+  isAcceptingCovidPatients: { type: Boolean, default: true },
+  isOfferingFullMedicalCare: { type: Boolean, default: true },
+  isAcceptingNonCovidPatients: { type: Boolean, default: true },
+  lastUpdated: { type: Number, default: Date.now() },
+  isVerified: { type: Boolean, default: false },
+  ventilatorCount: { type: Number, default: 0 },
 });
 HospitalSchema.pre("save", function (next) {
   // Check if document is new or a new password has been set
