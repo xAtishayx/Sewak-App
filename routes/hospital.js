@@ -10,10 +10,11 @@ router.post("/register", function (req, res) {
     email,
     password,
     name,
-    location,
+    location = {},
     address,
     telephone,
-    type,
+    type = [],
+    description,
   } = req.body;
   const hospital = new Hospital({
     email,
@@ -23,18 +24,18 @@ router.post("/register", function (req, res) {
     address,
     telephone,
     type,
+    description,
   });
   hospital.save(function (err, doc) {
     if (err) {
+      console.log(err);
       res.status(500).send("Error registering new hospital please try again.");
     } else {
       const payload = { email };
       const token = jwt.sign(payload, "secret", {
         expiresIn: "1h",
       });
-      res
-        .cookie("token", token, { httpOnly: true })
-        .json({ token, hospital: hospital });
+      res.cookie("token", token, { httpOnly: true }).json({ token, hospital });
     }
   });
 });
@@ -74,6 +75,11 @@ router.post("/login", function (req, res) {
       });
     }
   });
+});
+
+router.get("/all", (req, res) => {
+  Hospital.find().then((Hospital) => res.json(Hospital));
+  // res.send({});
 });
 
 router.get("/protected", withAuth, function (req, res) {

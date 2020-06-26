@@ -53,3 +53,7 @@ a {
   margin: 20px;
   align-items: center;
 }
+.create-form-element .MuiTextField-root {
+  margin: 4px 3px;
+  width: 18vw
+}

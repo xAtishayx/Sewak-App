@@ -1,4 +1,3 @@
-// User.js
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
@@ -14,6 +13,8 @@ const HospitalSchema = new mongoose.Schema({
   telephone: { type: String, unique: true },
   beds: { type: Number, unique: true, default: 0 },
   type: [{ type: String }],
+  description: { type: String, required: true },
+  image: { type: String },
 });
 HospitalSchema.pre("save", function (next) {
   // Check if document is new or a new password has been set
