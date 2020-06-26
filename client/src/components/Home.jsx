@@ -7,6 +7,7 @@ import Select from "@material-ui/core/Select";
 import { Typography } from "@material-ui/core";
 import axios from "axios";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Text from "./Text";
 
 const images = [image1, image2, image3];
 
@@ -44,7 +45,7 @@ export default function Home() {
   }, []);
   return (
     <div>
-      <div className="hospital-select-wrapper">
+      {/* <div className="hospital-select-wrapper">
         <Typography variant="body2" style={{ marginRight: 10 }}>
           Select the type of Hospital you are looking for
         </Typography>
@@ -62,7 +63,8 @@ export default function Home() {
           <option value={2}>Type2</option>
           <option value={3}>Type3</option>
         </Select>
-      </div>
+      </div> */}
+      <Text text={"List of all the hospitals"} />
 
       {hospitalsLoading ? (
         <div
@@ -86,6 +88,7 @@ export default function Home() {
                 address: v.address,
                 image: images[randomNumberBetweenZeroAnd(3)],
                 link: v._id,
+                data: v,
               }}
             />
           ))}

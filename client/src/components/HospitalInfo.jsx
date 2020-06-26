@@ -7,11 +7,11 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import InfoIcon from "@material-ui/icons/Info";
-
+import HospitalTable from "./HospitalTable";
 export default function FormDialog({ props }) {
   const { data } = props;
+  console.log(props);
   const [open, setOpen] = React.useState(false);
-  console.log(data);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -23,8 +23,8 @@ export default function FormDialog({ props }) {
   return (
     <div style={{ marginLeft: 10 }}>
       <Button
-        variant="contained"
-        color="#66bb6a"
+        variant="outlined"
+        color="primary"
         endIcon={<InfoIcon />}
         onClick={handleClickOpen}
       >
@@ -37,43 +37,12 @@ export default function FormDialog({ props }) {
       >
         <DialogTitle id="form-dialog-title">{data.name}</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Name"
-            type="text"
-            fullWidth
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="time"
-            label="Time"
-            type="time"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            fullWidth
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Request"
-            type="textarea"
-            fullWidth
-          />
+          <DialogContentText>{data.description}</DialogContentText>
+          <HospitalTable props={{ data }} />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleClose} color="primary">
-            Book Appointment
+            Close
           </Button>
         </DialogActions>
       </Dialog>

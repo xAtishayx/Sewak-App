@@ -1,18 +1,19 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import clsx from "clsx";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Avatar from "@material-ui/core/Avatar";
-import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import FavoriteIcon from "@material-ui/icons/Favorite";
 import AddIcCallIcon from "@material-ui/icons/AddIcCall";
 import { Link } from "react-router-dom";
-
+import InfoIcon from "@material-ui/icons/Info";
+import Button from "@material-ui/core/Button";
+import HospitalInfo from "./HospitalInfo";
+import IconButton from "@material-ui/core/IconButton";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,43 +39,53 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function HospitalCards({ props }) {
-  const { name, desc, address, image, link } = props;
+  const { name, desc, address, image, link, data } = props;
   const classes = useStyles();
 
   return (
-    <Link to={`/hospital/profile/${link}`}>
-      <Card className={classes.root} style={{ width: 345 }} width="345px">
-        <CardHeader
-          avatar={
-            <Avatar aria-label="recipe" className={classes.avatar}>
-              {name[0]}
-            </Avatar>
-          }
-          // action={
-          //   {
-          /* <IconButton aria-label="settings">
+    <Card
+      className={classes.root}
+      style={{ width: 345 }}
+      width="345px"
+      style={{ flexBasis: "33.33%" }}
+    >
+      <CardHeader
+        avatar={
+          <Avatar aria-label="recipe" className={classes.avatar}>
+            {name[0]}
+          </Avatar>
+        }
+        action={
+          <IconButton aria-label="settings">
             <MoreVertIcon />
-          </IconButton> */
-          //   }
-          // }
-          title={name}
-          subheader={Math.floor(Math.random() * 30) + " kms away"}
-        />
-        <CardMedia className={classes.media} image={image} title={name} />
-        <CardContent>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {desc}
-          </Typography>
-        </CardContent>
-        <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
-            <FavoriteIcon />
           </IconButton>
-          <IconButton aria-label="share">
-            <AddIcCallIcon />
-          </IconButton>
-        </CardActions>
-      </Card>
-    </Link>
+        }
+        title={name}
+        subheader={Math.floor(Math.random() * 30) + " kms away"}
+      />
+      <CardMedia className={classes.media} image={image} title={name} />
+      <CardContent>
+        <Typography variant="body2" color="textSecondary" component="p">
+          {desc}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Link to={`/hospital/profile/${link}`}>
+          <Button variant="outlined" color="primary" endIcon={<InfoIcon />}>
+            View Detail
+          </Button>
+        </Link>
+        <a href={`tel:${data.telephone}`}>
+          <Button
+            variant="outlined"
+            color="#aed581"
+            endIcon={<AddIcCallIcon />}
+          >
+            Call
+          </Button>
+        </a>
+        <HospitalInfo props={{ data }} />
+      </CardActions>
+    </Card>
   );
 }

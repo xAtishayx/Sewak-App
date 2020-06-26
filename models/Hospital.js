@@ -7,7 +7,7 @@ const HospitalSchema = new mongoose.Schema({
   name: { type: String, required: true },
   location: {
     latitude: { type: String },
-    latitude: { type: String },
+    longitude: { type: String },
   },
   address: { type: String, unique: true },
   telephone: { type: String, unique: true },

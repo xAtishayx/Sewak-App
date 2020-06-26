@@ -36,7 +36,7 @@ a {
   flex-wrap: wrap;
 }
 .hospital-card-wrapper .MuiCard-root {
-  margin: 10px;
+  margin: 10px 5vw;
 }
 .profile-page-wrapper {
   margin: 30px 30vw;
