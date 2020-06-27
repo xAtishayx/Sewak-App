@@ -17,7 +17,7 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get("/", function (req, res) {
-  res.sendFile(path.join(__dirname, "./client/public", "index.html"));
+  res.sendFile(path.join(__dirname, "./client/build", "index.html"));
 });
 
 app.use("/api/user", user);
