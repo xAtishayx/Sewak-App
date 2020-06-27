@@ -33,7 +33,7 @@ export default function FormDialog({ props }) {
       <Dialog
         open={open}
         onClose={handleClose}
-        aria-labelledby="form-dialog-title"
+        aria-labelledby="form-dialog-title" 
       >
         <DialogTitle id="form-dialog-title">{data.name}</DialogTitle>
         <DialogContent>
@@ -41,6 +41,9 @@ export default function FormDialog({ props }) {
           <HospitalTable props={{ data }} />
         </DialogContent>
         <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Close
+          </Button>
           <Button onClick={handleClose} color="primary">
             Close
           </Button>

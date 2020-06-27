@@ -7,8 +7,10 @@ import {
   DialogActions,
   DialogTitle,
   Button,
+  Link,
 } from "@material-ui/core";
 import HospitalTable from "./HospitalTable";
+import { NavLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -123,13 +125,26 @@ export const HMap = (props) => {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">{currentElement.ele ? currentElement.ele.name : null}</DialogTitle>
+        <DialogTitle id="form-dialog-title">
+          {currentElement.ele ? currentElement.ele.name : null}
+        </DialogTitle>
         <DialogContent>
-          <DialogContentText>{currentElement.ele ? currentElement.ele.description : null}</DialogContentText>
+          <DialogContentText>
+            {currentElement.ele ? currentElement.ele.description : null}
+          </DialogContentText>
           <HospitalTable props={{ data: currentElement.ele }} />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <NavLink
+            to={`/hospital/profile/${
+              currentElement.ele ? currentElement.ele._id : null
+            }`}
+          >
+            <Button variant="outlined" onClick={handleClose} color="primary">
+              View Profile
+            </Button>
+          </NavLink>
+          <Button variant="outlined" onClick={handleClose} color="primary">
             Close
           </Button>
         </DialogActions>
