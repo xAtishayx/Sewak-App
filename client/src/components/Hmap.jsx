@@ -1,15 +1,14 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardMedia from "@material-ui/core/CardMedia";
-import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
-import Avatar from "@material-ui/core/Avatar";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import AddIcCallIcon from "@material-ui/icons/AddIcCall";
+import {
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  DialogTitle,
+  Button,
+} from "@material-ui/core";
+import HospitalTable from "./HospitalTable";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,6 +34,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const HMap = (props) => {
+  const [open, setOpen] = React.useState(false);
+  const [currentElement, setElement] = React.useState({});
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   const mapRef = React.useRef(null);
   React.useLayoutEffect(() => {
     if (!mapRef.current) return;
@@ -82,27 +90,27 @@ export const HMap = (props) => {
             let item = result.items[0];
             const currentGroup = new H.map.Group();
             map.addObject(currentGroup);
-            console.log(item);
             map.setCenter(item.position);
             const currentMarker = new H.map.Marker(item.position);
-            console.log(item);
             // currentMarker.setData(ele);
             currentGroup.addObject(currentMarker);
-            // currentGroup.addEventListener("tap", (evt) => {});
+            currentGroup.addEventListener("tap", (evt) => {
+              setElement({ ele });
+              handleClickOpen();
+              console.log(ele);
+            });
           },
           alert
         )
       );
     };
-    console.log(props.data);
     addMarkerfromData(platform, props.data);
 
     return () => {
       map.dispose();
     };
   }, [mapRef, props.data]);
-  const classes = useStyles();
-
+  console.log(currentElement);
   return (
     <div>
       <div
@@ -110,6 +118,22 @@ export const HMap = (props) => {
         ref={mapRef}
         style={{ height: "500px", width: "600px" }}
       />
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">{currentElement.ele ? currentElement.ele.name : null}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>{currentElement.ele ? currentElement.ele.description : null}</DialogContentText>
+          <HospitalTable props={{ data: currentElement.ele }} />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };
