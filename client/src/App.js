@@ -42,9 +42,9 @@ export default function App() {
     <>
       <Navbar />
       <Switch>
-        <Route path="/" exact component={Home} />
+        <Route path="/hospital/all" exact component={Home} />
         <Route path="/user/auth" exact component={UserAuth} />
-        <Route path="/landing" exact component={Dashboard} />
+        <Route path="/" exact component={Dashboard} />
         <Route path="/hospital/auth" exact component={HospitalAuth} />
         <Route path="/hospital/profile/:id" exact component={HospitalProfile} />
         <Route

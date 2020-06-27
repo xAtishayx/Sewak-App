@@ -54,6 +54,10 @@ export default function ButtonAppBar() {
           <Typography variant="h6" className={classes.title}>
             <NavLink to="/">Sewak</NavLink>
           </Typography>
+          <NavLink to="/hospital/all">
+            <Button color="inherit">All Hospitals</Button>
+          </NavLink>
+          |
           {state.isAuth ? (
             <NavLink
               to={

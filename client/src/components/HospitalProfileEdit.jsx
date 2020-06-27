@@ -9,6 +9,7 @@ import {
   Button,
   Checkbox,
   Typography,
+  Snackbar,
 } from "@material-ui/core";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import EmailIcon from "@material-ui/icons/Email";
@@ -17,8 +18,11 @@ import AddressIcon from "@material-ui/icons/Home";
 import CreateIcon from "@material-ui/icons/Create";
 import TelephoneIcon from "@material-ui/icons/Phone";
 import image from "../assets/dashboard.svg";
+import { Alert } from "@material-ui/lab";
 
 export default function HospitalProfileEdit({ match }) {
+  const [open, setOpen] = React.useState(false);
+
   const [values, setValues] = useState({
     email: "",
     name: "",
@@ -76,12 +80,25 @@ export default function HospitalProfileEdit({ match }) {
       });
     }
   }, [state.hospitalData, trigger]);
+  const handleClick = () => {
+    setOpen(true);
+  };
 
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
   if (state.isLoading) return "Loading...";
   if (!state.isHospital || state.hospitalData._id !== match.params.id)
     return <Redirect to="/" />;
   const handleOnchange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
+  };
+  const handleOnCheckboxchange = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.checked });
   };
   return (
     <div>
@@ -101,7 +118,11 @@ export default function HospitalProfileEdit({ match }) {
           <img src={image} alt="edit" style={{ width: "100%" }} />
           <Typography
             variant="h4"
-            style={{ textAlign: "center", margin: "30px 0px 0px 0px", color: "#0000009c" }}
+            style={{
+              textAlign: "center",
+              margin: "30px 0px 0px 0px",
+              color: "#0000009c",
+            }}
             display="block"
           >
             Hospital Dashboard
@@ -232,17 +253,22 @@ export default function HospitalProfileEdit({ match }) {
             style={{
               padding: 10,
               display: "flex",
-              justifyContent: "space-between",
+              justifyContent: "flex-end",
               flexDirection: "column",
             }}
+            className="dashboard-checkbox-wrapper"
           >
             <div>
               <Typography variant="body1" display="block">
                 Is this a COVID dedicated hospital?{" "}
                 <Checkbox
+                  onChange={handleOnCheckboxchange}
                   checked={values.isCovidDedicated}
                   color="primary"
-                  inputProps={{ "aria-label": "secondary checkbox" }}
+                  inputProps={{
+                    "aria-label": "secondary checkbox",
+                    name: "isCovidDedicated",
+                  }}
                 />
               </Typography>
             </div>
@@ -250,9 +276,13 @@ export default function HospitalProfileEdit({ match }) {
               <Typography variant="body1" display="block">
                 Is this accepting COVID patients?
                 <Checkbox
+                  onChange={handleOnCheckboxchange}
                   checked={values.isAcceptingCovidPatients}
                   color="primary"
-                  inputProps={{ "aria-label": "secondary checkbox" }}
+                  inputProps={{
+                    "aria-label": "secondary checkbox",
+                    name: "isAcceptingCovidPatients",
+                  }}
                 />
               </Typography>
             </div>
@@ -260,9 +290,13 @@ export default function HospitalProfileEdit({ match }) {
               <Typography variant="body1" display="block">
                 Is this accepting non-COVID patients?
                 <Checkbox
+                  onChange={handleOnCheckboxchange}
                   checked={values.isAcceptingNonCovidPatients}
                   color="primary"
-                  inputProps={{ "aria-label": "secondary checkbox" }}
+                  inputProps={{
+                    "aria-label": "secondary checkbox",
+                    name: "isAcceptingNonCovidPatients",
+                  }}
                 />
               </Typography>
             </div>
@@ -270,9 +304,13 @@ export default function HospitalProfileEdit({ match }) {
               <Typography variant="body1" display="block">
                 Is this offering full medical care to patients?
                 <Checkbox
+                  onChange={handleOnCheckboxchange}
                   checked={values.isOfferingFullMedicalCare}
                   color="primary"
-                  inputProps={{ "aria-label": "secondary checkbox" }}
+                  inputProps={{
+                    "aria-label": "secondary checkbox",
+                    name: "isOfferingFullMedicalCare",
+                  }}
                 />
               </Typography>
             </div>
@@ -302,12 +340,18 @@ export default function HospitalProfileEdit({ match }) {
                     },
                   });
                   toggleTrigger(!trigger);
+                  handleClick();
                 })
                 .catch((err) => console.error(err));
             }}
           >
             Update
           </Button>
+          <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="success">
+              Changes has been updated
+            </Alert>
+          </Snackbar>
         </div>
       </Paper>
     </div>

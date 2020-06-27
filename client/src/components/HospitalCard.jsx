@@ -40,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function HospitalCards({ props }) {
   const { name, desc, address, image, link, data } = props;
+  console.log(props);
   const classes = useStyles();
 
   return (
@@ -52,7 +53,7 @@ export default function HospitalCards({ props }) {
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-            {name[0]}
+            {data.name[0]}
           </Avatar>
         }
         action={
@@ -60,17 +61,19 @@ export default function HospitalCards({ props }) {
             <MoreVertIcon />
           </IconButton>
         }
-        title={name}
+        title={data.name}
         subheader={Math.floor(Math.random() * 30) + " kms away"}
       />
-      <CardMedia className={classes.media} image={image} title={name} />
+      {image ? (
+        <CardMedia className={classes.media} image={image} title={data.name} />
+      ) : null}
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          {desc}
+          {data.description}
         </Typography>
       </CardContent>
       <CardActions>
-        <Link to={`/hospital/profile/${link}`}>
+        <Link to={`/hospital/profile/${data._id}`}>
           <Button variant="outlined" color="primary" endIcon={<InfoIcon />}>
             View Detail
           </Button>

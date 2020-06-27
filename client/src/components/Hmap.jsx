@@ -105,38 +105,11 @@ export const HMap = (props) => {
 
   return (
     <div>
-      <div className="map" ref={mapRef} style={{ height: "500px" }} />;
-      <Card className={classes.root} style={{ width: 345 }} width="345px">
-        <CardHeader
-          avatar={
-            <Avatar aria-label="recipe" className={classes.avatar}>
-              Name
-            </Avatar>
-          }
-          // action={
-          //   {
-          /* <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton> */
-          //   }
-          // }
-          title="side"
-          subheader={Math.floor(Math.random() * 30) + " kms away"}
-        />
-        <CardContent>
-          <Typography variant="body2" color="textSecondary" component="p">
-            hello
-          </Typography>
-        </CardContent>
-        <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
-            <FavoriteIcon />
-          </IconButton>
-          <IconButton aria-label="share">
-            <AddIcCallIcon />
-          </IconButton>
-        </CardActions>
-      </Card>
+      <div
+        className="map"
+        ref={mapRef}
+        style={{ height: "500px", width: "600px" }}
+      />
     </div>
   );
 };
