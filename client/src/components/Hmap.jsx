@@ -11,29 +11,28 @@ import Typography from "@material-ui/core/Typography";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import AddIcCallIcon from "@material-ui/icons/AddIcCall";
 
-
 const useStyles = makeStyles((theme) => ({
-    root: {
-      maxWidth: 345,
-    },
-    media: {
-      height: 0,
-      paddingTop: "56.25%", // 16:9
-    },
-    expand: {
-      transform: "rotate(0deg)",
-      marginLeft: "auto",
-      transition: theme.transitions.create("transform", {
-        duration: theme.transitions.duration.shortest,
-      }),
-    },
-    expandOpen: {
-      transform: "rotate(180deg)",
-    },
-    avatar: {
-      backgroundColor: "green",
-    },
-  }));
+  root: {
+    maxWidth: 345,
+  },
+  media: {
+    height: 0,
+    paddingTop: "56.25%", // 16:9
+  },
+  expand: {
+    transform: "rotate(0deg)",
+    marginLeft: "auto",
+    transition: theme.transitions.create("transform", {
+      duration: theme.transitions.duration.shortest,
+    }),
+  },
+  expandOpen: {
+    transform: "rotate(180deg)",
+  },
+  avatar: {
+    backgroundColor: "green",
+  },
+}));
 
 export const HMap = (props) => {
   const mapRef = React.useRef(null);
@@ -53,6 +52,25 @@ export const HMap = (props) => {
     const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 
     const ui = H.ui.UI.createDefault(map, defaultLayers);
+
+    const success = (position) => {
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+      map.setCenter({ lat, lng });
+      map.setZoom(10);
+      const currentMarker = new H.map.Marker({ lat, lng });
+      map.addObject(currentMarker);
+      currentMarker.addEventListener("tap", (event) => {
+        alert("This is your location");
+      });
+    };
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(success);
+    } else {
+      alert(
+        "Your browser does not support location tracking, or permission is denied."
+      );
+    }
     const addMarkerfromData = (platform, data) => {
       let service = platform.getSearchService();
       data.map((ele) =>
@@ -86,9 +104,9 @@ export const HMap = (props) => {
   const classes = useStyles();
 
   return (
-  <div>
-  <div className="map" ref={mapRef} style={{ height: "500px" }} />;
-  <Card className={classes.root} style={{ width: 345 }} width="345px">
+    <div>
+      <div className="map" ref={mapRef} style={{ height: "500px" }} />;
+      <Card className={classes.root} style={{ width: 345 }} width="345px">
         <CardHeader
           avatar={
             <Avatar aria-label="recipe" className={classes.avatar}>
@@ -119,5 +137,6 @@ export const HMap = (props) => {
           </IconButton>
         </CardActions>
       </Card>
-  </div>
-  )};
+    </div>
+  );
+};

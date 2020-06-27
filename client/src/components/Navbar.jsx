@@ -74,6 +74,12 @@ export default function ButtonAppBar() {
               <Button color="inherit">Login as User</Button>{" "}
             </NavLink>
           )}
+          {state.isHospital ? <>|</> : null}
+          {state.isHospital ? (
+            <NavLink to={`/hospital/profile/edit/${state.hospitalData._id}`}>
+              <Button color="inherit">Edit Profile</Button>
+            </NavLink>
+          ) : null}
           |
           {state.isAuth ? (
             <Button onClick={handleClick} color="inherit">

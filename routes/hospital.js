@@ -95,4 +95,15 @@ router.get("/profile/:id", (req, res) => {
   });
 });
 
+router.post("/profile/edit/:id", withAuth, (req, res) => {
+  Hospital.findById(req.params.id, (err, profile) => {
+    if (err) res.status(500).send({ message: err });
+    if (profile.email !== req.email)
+      res.status(401).send({ message: "You are not authorized!" });
+    Hospital.findByIdAndUpdate(req.params.id, req.body.updated, { new: true })
+      .then((doc) => res.send({ data: doc }))
+      .catch((e) => console.log(e));
+  });
+});
+
 module.exports = router;

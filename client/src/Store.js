@@ -8,6 +8,7 @@ const initialState = {
   isHospital: false,
   hospitalData: {},
   userData: {},
+  isLoading: true,
 };
 
 const Store = ({ children }) => {
