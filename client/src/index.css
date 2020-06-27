@@ -98,3 +98,7 @@ a {
   height: 500px;
   overflow-y: scroll;
 }
+.dashboard-outer-wrapper {
+  margin-top: 60px;
+  background-color: white;
+}
