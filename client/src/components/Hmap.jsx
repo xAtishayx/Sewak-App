@@ -118,7 +118,7 @@ export const HMap = (props) => {
       <div
         className="map"
         ref={mapRef}
-        style={{ height: "500px", width: "600px" }}
+        style={{ height: "600px", width: "1200px" }}
       />
       <Dialog
         open={open}
