@@ -18,55 +18,74 @@ const commentData = [
     comment:
       "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Sunt ea nostrud enim laboris irure.",
     date: "12-06-2020",
+    upvoteCount: "12",
+    downvoteCount: "13"
   },
   {
     name: "venom",
     comment:
       "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Duis proident veniam aliquip mollit adipisicing officia.",
     date: "12-06-2020",
+    upvoteCount: "12",
+    downvoteCount: "13"
   },
   {
     name: "Light",
     comment:
       "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Id quis nisi sit voluptate occaecat quis irure eu labore.",
     date: "12-06-2020",
+    upvoteCount: "12",
+    downvoteCount: "13"
   },
   {
     name: "veron",
     comment:
       "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Sit minim ullamco deserunt in incididunt aute ipsum esse.",
     date: "12-06-2020",
+    upvoteCount: "12",
+    downvoteCount: "13"
   },
   {
+    id: "5f28e7d285e05711d5e86b3f",
     name: "hayabusa",
     comment:
       "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Sint commodo nulla tempor laborum do pariatur elit reprehenderit ad Lorem aute anim excepteur.",
     date: "12-06-2020",
+    upvoteCount: "12",
+    downvoteCount: "13"
   },
   {
     name: "bugati",
     comment:
       "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Esse ut anim eiusmod ex irure enim non officia anim.",
     date: "12-06-2020",
+    upvoteCount: "12",
+    downvoteCount: "13"
   },
   {
     name: "kallen",
     comment:
       "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Ex irure consectetur minim aliqua.",
     date: "12-06-2020",
+    upvoteCount: "12",
+    downvoteCount: "13"
   },
   {
     name: "lelouch",
     comment:
       "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Sunt sint aute dolor labore incididunt reprehenderit in exercitation.",
     date: "12-06-2020",
+    upvoteCount: "12",
+    downvoteCount: "13"
   },
   {
     name: "kissanime",
     comment:
       "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Excepteur anim labore incididunt laboris ea officia nulla irure.",
     date: "12-06-2020",
-  },
+    upvoteCount: "12",
+    downvoteCount: "13"
+  }
 ];
 
 export default function LetterAvatars({ match }) {
@@ -76,26 +95,96 @@ export default function LetterAvatars({ match }) {
   const [profileLoading, setProfileLoading] = useState(true);
   const [profile, setProfile] = useState({});
   const [commentData2, setCommentData] = useState(commentData);
-  const randomNumberBetweenZeroAnd = (a) => {
-    return Math.floor(Math.random() * a);
-  };
+  const [error, setError] = useState();
+  const [getcomment, setGetComment] = useState(false);
 
   useEffect(() => {
+    //   console.log('hey - ',state.userData);
     axios
       .get(`/api/hospital/profile/${match.params.id}`)
-      .then((res) => {
+      .then(res => {
         if (res.status !== 200) return;
-        console.log(res.data);
+        //      console.log(res.data);
         const profile = res.data;
         setProfile(profile);
         setTimeout(() => {
-          console.log(profile);
+          //        console.log(profile);
           setProfileLoading(false);
         }, 1000);
       })
-      .catch((err) => console.error(err));
+      .catch(err => console.error(err));
+
+    var i = {
+      id: match.params.id
+    };
+    console.log(i);
+    axios
+      .post(`/review/getcomments`, i)
+      .then(res => {
+        if (res.status !== 200) return;
+        //console.log(res.data);
+        setCommentData(res.data);
+        console.log(commentData);
+      })
+      .catch(err => console.error(err));
   }, []);
 
+  const submit = () => {
+    if (!state.isAuth) {
+      alert("You need to login first");
+      return;
+    }
+    const reviewobj = {
+      message: reviewComment,
+      hospitalID: profile.data._id,
+      userID: state.userData._id
+    };
+    axios
+      .post("/review/reviewpost", reviewobj)
+      .then(response => {
+        if (response.status !== 200) {
+          setError(response.data.message);
+          return;
+        }
+        setGetComment(getcomment ? false : true);
+        console.log(response);
+        setReviewComment("");
+      })
+      .catch(err => {
+        // console.log(err);
+        if (
+          err &&
+          err.response &&
+          err.response.data &&
+          err.response.data.message
+        )
+          setError(err.response.data.message);
+      });
+
+    window.scrollTo({
+      top: 100,
+      left: 100,
+      behavior: "smooth"
+    });
+  };
+
+  useEffect(() => {
+    var i = {
+      id: match.params.id
+    };
+    console.log(i);
+    axios
+      .post(`/review/getcomments`, i)
+      .then(res => {
+        if (res.status !== 200) return;
+        //console.log(res.data);
+        setCommentData(res.data);
+        console.log(commentData);
+      })
+      .catch(err => console.error(err));
+  }, [getcomment]);
+
+  console.log(state.userData);
   return (
     <div className="profile-page-wrapper">
       {profileLoading ? (
@@ -104,7 +193,7 @@ export default function LetterAvatars({ match }) {
             width: "100%",
             display: "flex",
             justifyContent: "center",
-            alignItems: "center",
+            alignItems: "center"
           }}
         >
           {/* <span style={{ marginRight: 15, fontSize: 18 }}>Loading profile...</span>{" "} */}
@@ -117,7 +206,7 @@ export default function LetterAvatars({ match }) {
               style={{
                 backgroundColor: "#5b9bd5",
                 width: "55px",
-                height: "55px",
+                height: "55px"
               }}
             >
               {profile.data.name[0]}
@@ -151,20 +240,20 @@ export default function LetterAvatars({ match }) {
             marginTop: 60,
             display: "flex",
             justifyContent: "space-between",
-            alignItems: "center",
+            alignItems: "center"
           }}
         >
           <div
             style={{
               padding: "3px 20px",
-              borderRight: "0.5px solid #0000005e",
+              borderRight: "0.5px solid #0000005e"
             }}
           >
             <Avatar
               style={{
                 backgroundColor: "#5b9bd5",
                 width: "55px",
-                height: "55px",
+                height: "55px"
               }}
               src={`https://api.adorable.io/avatars/282/${v.name}.png`}
             />
@@ -174,20 +263,60 @@ export default function LetterAvatars({ match }) {
           <div>
             <Typography
               style={{
-                padding: "3px 10px",
+                padding: "3px 10px"
               }}
               variant="subtitle1"
             >
               {v.comment}
             </Typography>
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
-              <Button>
+              <Button
+                onClick={() => {
+                  console.log(match.params.id, v.id, v.comment);
+                  axios
+                    .put("/review/updatecount", {
+                      votername: state.userData.name,
+                      hospitalID: match.params.id,
+                      userID: v.id,
+                      message: v.comment,
+                      upvoteCount: true,
+                      downvoteCount: false
+                    })
+                    .then(res => {
+                      if (res.status == 200) {
+                        console.log(res);
+                        setGetComment(getcomment ? false : true);
+                      }
+                    })
+                    .catch(err => console.error(err));
+                }}
+              >
                 <Upvote />
-                {randomNumberBetweenZeroAnd(20)}
+                {v.upvoteCount}
               </Button>
-              <Button>
+              <Button
+                onClick={() => {
+                  console.log(match.params.id, v.id, v.comment);
+                  axios
+                    .put("/review/updatecount", {
+                      votername: state.userData.name,
+                      hospitalID: match.params.id,
+                      userID: v.id,
+                      message: v.comment,
+                      upvoteCount: false,
+                      downvoteCount: true
+                    })
+                    .then(res => {
+                      if (res.status == 200) {
+                        console.log(res);
+                        setGetComment(getcomment ? false : true);
+                      }
+                    })
+                    .catch(err => console.error(err));
+                }}
+              >
                 <Downvote />
-                {randomNumberBetweenZeroAnd(10)}
+                {v.downvoteCount}
               </Button>
             </div>
           </div>
@@ -196,7 +325,7 @@ export default function LetterAvatars({ match }) {
       <Paper
         style={{
           padding: "20px 3vw",
-          margin: "60px 0px",
+          margin: "60px 0px"
         }}
       >
         <TextField
@@ -204,44 +333,21 @@ export default function LetterAvatars({ match }) {
           label="Review"
           type="textarea"
           InputLabelProps={{
-            shrink: true,
+            shrink: true
           }}
           fullWidth
           variant="outlined"
           value={reviewComment}
-          onChange={(e) => setReviewComment(e.target.value)}
+          onChange={e => setReviewComment(e.target.value)}
         />
         <div
           style={{
             display: "flex",
             justifyContent: "flex-end",
-            marginTop: "20px",
+            marginTop: "20px"
           }}
         >
-          <Button
-            color="#64b5f6"
-            variant="contained"
-            onClick={() => {
-              if (!state.isAuth) {
-                alert("You need to login first");
-                return;
-              }
-              commentData.unshift({
-                name: state.isHospital
-                  ? state.hospitalData.name
-                  : state.userData.name,
-                comment: reviewComment,
-                date: "27-06-2020",
-              });
-              setCommentData(commentData);
-              setReviewComment("");
-              window.scrollTo({
-                top: 100,
-                left: 100,
-                behavior: "smooth",
-              });
-            }}
-          >
+          <Button color="#64b5f6" variant="contained" onClick={submit}>
             Review
           </Button>
         </div>

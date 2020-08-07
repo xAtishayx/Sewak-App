@@ -6,7 +6,9 @@ const ReviewSchema = new mongoose.Schema({
   userID: { type: mongoose.SchemaTypes.ObjectId, required: true },
   upvoteCount: { type: Number, default: 0 },
   downvoteCount: { type: Number, default: 0 },
-  timestamp: true,
+  upvoteArray: { type: Array, required: true },
+  downvoteArray: { type: Array, required: true }
+  //timestamp : true,
 });
 
 module.exports = mongoose.model("Review", ReviewSchema);

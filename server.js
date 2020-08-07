@@ -7,8 +7,10 @@ const withAuth = require("./middlewares/auth");
 require("./db/mongoose");
 const user = require("./routes/user");
 const hospital = require("./routes/hospital");
+const review = require("./routes/review");
 const Hospital = require("./models/Hospital");
 const User = require("./models/User");
+const Review = require("./models/Review");
 
 const app = express();
 app.use(express.json());
@@ -16,31 +18,32 @@ app.use(cors());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get("/", function (req, res) {
+app.get("/", function(req, res) {
   res.sendFile(path.join(__dirname, "./client/public", "index.html"));
 });
 
 app.use("/api/user", user);
 app.use("/api/hospital", hospital);
+app.use("/review", review);
 
-app.get("/api/checkToken", withAuth, function (req, res) {
+app.get("/api/checkToken", withAuth, function(req, res) {
   const { email } = req;
-  User.findOne({ email }, function (err, user) {
+  User.findOne({ email }, function(err, user) {
     if (err) {
       console.error(err);
       res.status(500).json({
-        error: "Internal error please try again",
+        error: "Internal error please try again"
       });
     } else if (!user) {
       Hospital.findOne({ email }, (err, hospital) => {
         if (err) {
           console.error(err);
           res.status(500).json({
-            error: "Internal error please try again",
+            error: "Internal error please try again"
           });
         } else if (!hospital) {
           res.status(401).json({
-            message: "Authenticate first",
+            message: "Authenticate first"
           });
         } else if (hospital) {
           res.json({ hospital, isHospital: true });
@@ -52,7 +55,7 @@ app.get("/api/checkToken", withAuth, function (req, res) {
   });
 });
 
-app.get("/api/", withAuth, function (req, res) {
+app.get("/api/", withAuth, function(req, res) {
   res.send("Welcome!");
 });
 
