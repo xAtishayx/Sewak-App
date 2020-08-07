@@ -4,10 +4,16 @@ const ReviewSchema = new mongoose.Schema({
   message: { type: String, required: true },
   hospitalID: { type: mongoose.SchemaTypes.ObjectId, required: true },
   userID: { type: mongoose.SchemaTypes.ObjectId, required: true },
+  userName: { type: String, required: true },
   upvoteCount: { type: Number, default: 0 },
   downvoteCount: { type: Number, default: 0 },
-  upvoteArray: { type: Array, required: true },
-  downvoteArray: { type: Array, required: true }
+  voteArray: [
+    {
+      by: { type: mongoose.SchemaTypes.ObjectId, required: true },
+      vote: { type: Boolean, required: true },
+      userName: { type: String, required: true },
+    },
+  ],
   //timestamp : true,
 });
 

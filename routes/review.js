@@ -4,23 +4,18 @@ const express = require("express");
 
 const router = express.Router();
 
-router.post("/reviewpost", function(req, res) {
-  const { message, hospitalID, userID } = req.body;
-  var upvoteCount = 0;
-  var downvoteCount = 0;
-  var upvoteArray = [];
-  var downvoteArray = [];
+router.post("/reviewpost", function (req, res) {
+  const { message, hospitalID, userID, userName } = req.body;
+  const voteArray = [];
   const review = new Review({
     message,
     hospitalID,
     userID,
-    upvoteCount,
-    downvoteCount,
-    upvoteArray,
-    downvoteArray
+    voteArray,
+    userName
   });
   console.log(review);
-  review.save(function(err, doc) {
+  review.save(function (err, doc) {
     if (err) {
       console.log(err);
       res.status(500).send("Error registering new hospital please try again.");
@@ -30,93 +25,36 @@ router.post("/reviewpost", function(req, res) {
   });
 });
 
-router.post("/getcomments", function(req, res) {
+router.post("/updateVote", async (req, res) => {
+  console.log(req.body);
+  const { by, vote, reviewId, userName} = req.body;
+  Review.findOne({ _id: reviewId }, async function (err, review) {
+    if (err) {
+      res.status(500).send({ message: "review not found" });
+      return;
+    }
+    const isAlreadyReview = review.voteArray.findIndex((x) => x.by == by);
+    if (isAlreadyReview >= 0) {
+      review.voteArray[isAlreadyReview].vote = vote;
+    } else {
+      review.voteArray.push({ by, vote, userName });
+    }
+    // console.log(review)
+    await review.save();
+    res.sendStatus(200);
+  });
+});
+
+router.post("/getreviews", function (req, res) {
   const { id } = req.body;
 
-  Review.find({ hospitalID: id }, function(err, r) {
-    if (err) return console.log(err);
-    var arr = [];
-    // console.log(r);
-    if (r) {
-      var l = r.length;
-      var t = 0;
-      r.forEach(e => {
-        var msg = e.message;
-        console.log(e);
-        User.findById(e.userID).then(a => {
-          //console.log(a);
-          let u = {
-            id: a._id,
-            name: a.name,
-            comment: msg,
-            date: "26-03-12",
-            upvoteCount: e.upvoteCount,
-            downvoteCount: e.downvoteCount,
-            upvoteArray: e.upvoteArray,
-            downvoteArray: e.downvoteArray
-          };
-          arr.push(u);
-          t = t + 1;
-          //     console.log(t);
-          if (l == t) {
-            //   console.log(arr);
-            res.send(arr);
-          }
-        });
-      });
+  Review.find({ hospitalID: id }, function (err, reviews) {
+    if (err) {
+      res.sendStatus(500);
+      return;
     }
+    res.send({ reviews });
   });
 });
 
-router.put("/updatecount", (req, res) => {
-  const {
-    votername,
-    hospitalID,
-    userID,
-    message,
-    upvoteCount,
-    downvoteCount
-  } = req.body;
-
-  Review.find({ message }, function(err, r) {
-    if (err) return console.log(err);
-    var l = r.length;
-    for (var i = 0; i < l; i++) {
-      var ele = r[i];
-      //  console.log(ele);
-      if (ele.hospitalID == hospitalID && ele.userID == userID) {
-        console.log("hi");
-        const _id = ele._id;
-        if (upvoteCount) {
-          var upcount = ele.upvoteCount + 1;
-          var addupname = true;
-        } else {
-          var upcount = ele.upvoteCount;
-        }
-        if (downvoteCount) {
-          var downcount = ele.downvoteCount + 1;
-          addupname = false;
-        } else {
-          var downcount = ele.downvoteCount;
-        }
-
-        Review.findByIdAndUpdate(
-          _id,
-          {
-            downvoteCount: downcount,
-            upvoteCount: upcount,
-            $push: addupname
-              ? { upvoteArray: votername }
-              : { downvoteArray: votername }
-          },
-          function(err, result) {
-            if (err) return console.log(err);
-            console.log(result);
-          }
-        );
-      }
-    }
-    res.status(200).send("OK");
-  });
-});
 module.exports = router;

@@ -10,7 +10,6 @@ import InfoIcon from "@material-ui/icons/Info";
 import HospitalTable from "./HospitalTable";
 export default function FormDialog({ props }) {
   const { data } = props;
-  console.log(props);
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
