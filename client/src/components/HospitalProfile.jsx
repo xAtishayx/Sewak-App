@@ -122,7 +122,6 @@ export default function LetterAvatars({ match }) {
         }
         setCommentLoading(true);
         setGetComment(getcomment ? false : true);
-        console.log(response);
         setReviewComment("");
       })
       .catch((err) => {
@@ -147,7 +146,6 @@ export default function LetterAvatars({ match }) {
       .get(`/api/hospital/profile/${match.params.id}`)
       .then((res) => {
         if (res.status !== 200) return;
-        // console.log(res);
         const profile = res.data;
         setProfile(profile);
         setTimeout(() => {
@@ -159,15 +157,12 @@ export default function LetterAvatars({ match }) {
     var i = {
       id: match.params.id,
     };
-    console.log(i);
     axios
       .post(`/review/getreviews`, i)
       .then((res) => {
         if (res.status !== 200) return;
-        console.log(res.data);
         setCommentData(res.data.reviews.reverse());
         setCommentLoading(false);
-        console.log(commentData2);
       })
       .catch((err) => console.error(err));
   }, [getcomment]);
@@ -274,7 +269,6 @@ export default function LetterAvatars({ match }) {
                 <div style={{ display: "flex", justifyContent: "flex-end" }}>
                   <Button
                     onClick={() => {
-                      // console.log(state.userData);
                       axios
                         .post("/review/updateVote", {
                           userName: state.userData.name,
@@ -297,7 +291,6 @@ export default function LetterAvatars({ match }) {
                   </Button>
                   <Button
                     onClick={() => {
-                      console.log(match.params.id, v.id, v.comment);
                       axios
                         .post("/review/updateVote", {
                           userName: state.userData.name,
