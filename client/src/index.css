@@ -90,12 +90,10 @@ a {
 }
 .dashboard-wrapper {
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  height: 78vh;
+  height: 100vh;
 }
 .hospital-list-map {
-  height: 500px;
+  height: 100vh;
   overflow-y: scroll;
 }
 .dashboard-outer-wrapper {

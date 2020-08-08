@@ -75,7 +75,7 @@ export default function HospitalCards({ props }) {
       <CardActions>
         <Link to={`/hospital/profile/${data._id}`}>
           <Button variant="outlined" color="primary" endIcon={<InfoIcon />}>
-            View Detail
+            Detail
           </Button>
         </Link>
         <a href={`tel:${data.telephone}`}>

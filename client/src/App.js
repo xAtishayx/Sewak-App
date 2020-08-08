@@ -10,6 +10,7 @@ import HospitalProfileEdit from "./components/HospitalProfileEdit";
 
 import { Context } from "./Store";
 import Dashboard from "./components/Landing";
+import ViewMap from "./components/ViewMap";
 
 export default function App() {
   const [state, dispatch] = useContext(Context);
@@ -42,6 +43,7 @@ export default function App() {
     <>
       <Navbar />
       <Switch>
+      <Route path="/map" exact component={ViewMap} />
         <Route path="/hospital/all" exact component={Home} />
         <Route path="/user/auth" exact component={UserAuth} />
         <Route path="/" exact component={Dashboard} />
