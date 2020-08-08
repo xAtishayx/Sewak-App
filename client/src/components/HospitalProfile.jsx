@@ -12,82 +12,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import HospitalInfo from "./HospitalInfo";
 import { Context } from "../Store";
 
-// const commentData = [
-//   {
-//     name: "blurry",
-//     comment:
-//       "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Sunt ea nostrud enim laboris irure.",
-//     date: "12-06-2020",
-//     upvoteCount: "12",
-//     downvoteCount: "13"
-//   },
-//   {
-//     name: "venom",
-//     comment:
-//       "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Duis proident veniam aliquip mollit adipisicing officia.",
-//     date: "12-06-2020",
-//     upvoteCount: "12",
-//     downvoteCount: "13"
-//   },
-//   {
-//     name: "Light",
-//     comment:
-//       "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Id quis nisi sit voluptate occaecat quis irure eu labore.",
-//     date: "12-06-2020",
-//     upvoteCount: "12",
-//     downvoteCount: "13"
-//   },
-//   {
-//     name: "veron",
-//     comment:
-//       "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Sit minim ullamco deserunt in incididunt aute ipsum esse.",
-//     date: "12-06-2020",
-//     upvoteCount: "12",
-//     downvoteCount: "13"
-//   },
-//   {
-//     id: "5f28e7d285e05711d5e86b3f",
-//     name: "hayabusa",
-//     comment:
-//       "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Sint commodo nulla tempor laborum do pariatur elit reprehenderit ad Lorem aute anim excepteur.",
-//     date: "12-06-2020",
-//     upvoteCount: "12",
-//     downvoteCount: "13"
-//   },
-//   {
-//     name: "bugati",
-//     comment:
-//       "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Esse ut anim eiusmod ex irure enim non officia anim.",
-//     date: "12-06-2020",
-//     upvoteCount: "12",
-//     downvoteCount: "13"
-//   },
-//   {
-//     name: "kallen",
-//     comment:
-//       "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Ex irure consectetur minim aliqua.",
-//     date: "12-06-2020",
-//     upvoteCount: "12",
-//     downvoteCount: "13"
-//   },
-//   {
-//     name: "lelouch",
-//     comment:
-//       "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Sunt sint aute dolor labore incididunt reprehenderit in exercitation.",
-//     date: "12-06-2020",
-//     upvoteCount: "12",
-//     downvoteCount: "13"
-//   },
-//   {
-//     name: "kissanime",
-//     comment:
-//       "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Excepteur anim labore incididunt laboris ea officia nulla irure.",
-//     date: "12-06-2020",
-//     upvoteCount: "12",
-//     downvoteCount: "13"
-//   }
-// ];
-
 export default function LetterAvatars({ match }) {
   const [state, dispatch] = useContext(Context);
   const [reviewComment, setReviewComment] = useState("");
@@ -207,7 +131,7 @@ export default function LetterAvatars({ match }) {
               {profile.data.description}
             </Typography>
             <div className="profile-btn">
-              <BookAnAppointment />
+              <BookAnAppointment props={{hospitalID: match.params.id, userID: state.userData._id}} />
               <HospitalInfo props={profile} />
             </div>
           </div>
