@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import { Paper, Icon } from "@material-ui/core";
 import { Typography, TextField } from "@material-ui/core";
-import { Rating } from "@material-ui/lab";
+import { Rating, Skeleton } from "@material-ui/lab";
 import { Button } from "@material-ui/core";
 import Upvote from "@material-ui/icons/ArrowUpward";
 import Downvote from "@material-ui/icons/ArrowDownward";
@@ -11,82 +11,6 @@ import axios from "axios";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import HospitalInfo from "./HospitalInfo";
 import { Context } from "../Store";
-
-// const commentData = [
-//   {
-//     name: "blurry",
-//     comment:
-//       "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Sunt ea nostrud enim laboris irure.",
-//     date: "12-06-2020",
-//     upvoteCount: "12",
-//     downvoteCount: "13"
-//   },
-//   {
-//     name: "venom",
-//     comment:
-//       "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Duis proident veniam aliquip mollit adipisicing officia.",
-//     date: "12-06-2020",
-//     upvoteCount: "12",
-//     downvoteCount: "13"
-//   },
-//   {
-//     name: "Light",
-//     comment:
-//       "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Id quis nisi sit voluptate occaecat quis irure eu labore.",
-//     date: "12-06-2020",
-//     upvoteCount: "12",
-//     downvoteCount: "13"
-//   },
-//   {
-//     name: "veron",
-//     comment:
-//       "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Sit minim ullamco deserunt in incididunt aute ipsum esse.",
-//     date: "12-06-2020",
-//     upvoteCount: "12",
-//     downvoteCount: "13"
-//   },
-//   {
-//     id: "5f28e7d285e05711d5e86b3f",
-//     name: "hayabusa",
-//     comment:
-//       "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Sint commodo nulla tempor laborum do pariatur elit reprehenderit ad Lorem aute anim excepteur.",
-//     date: "12-06-2020",
-//     upvoteCount: "12",
-//     downvoteCount: "13"
-//   },
-//   {
-//     name: "bugati",
-//     comment:
-//       "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Esse ut anim eiusmod ex irure enim non officia anim.",
-//     date: "12-06-2020",
-//     upvoteCount: "12",
-//     downvoteCount: "13"
-//   },
-//   {
-//     name: "kallen",
-//     comment:
-//       "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Ex irure consectetur minim aliqua.",
-//     date: "12-06-2020",
-//     upvoteCount: "12",
-//     downvoteCount: "13"
-//   },
-//   {
-//     name: "lelouch",
-//     comment:
-//       "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Sunt sint aute dolor labore incididunt reprehenderit in exercitation.",
-//     date: "12-06-2020",
-//     upvoteCount: "12",
-//     downvoteCount: "13"
-//   },
-//   {
-//     name: "kissanime",
-//     comment:
-//       "Cillum et fugiat aliquip consectetur aliqua magna amet esse. Excepteur anim labore incididunt laboris ea officia nulla irure.",
-//     date: "12-06-2020",
-//     upvoteCount: "12",
-//     downvoteCount: "13"
-//   }
-// ];
 
 export default function LetterAvatars({ match }) {
   const [state, dispatch] = useContext(Context);
@@ -174,13 +98,19 @@ export default function LetterAvatars({ match }) {
       {profileLoading ? (
         <div
           style={{
-            width: "100%",
+            width: "350px",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            flexDirection: "column",
+            marginTop: 40,
+            marginLeft: 80
           }}
         >
-          <CircularProgress />
+          {/* <CircularProgress /> */}
+          <Skeleton variant="text" width={350} />
+          <Skeleton variant="circle" width={40} height={40} />
+          <Skeleton variant="rect" width={350} height={118} />
         </div>
       ) : (
         <Paper style={{ padding: 20 }}>
@@ -207,7 +137,14 @@ export default function LetterAvatars({ match }) {
               {profile.data.description}
             </Typography>
             <div className="profile-btn">
-              <BookAnAppointment />
+              {state.isHospital ? null : (
+                <BookAnAppointment
+                  props={{
+                    hospitalID: match.params.id,
+                    userID: state.userData ? state.userData._id : "",
+                  }}
+                />
+              )}
               <HospitalInfo props={profile} />
             </div>
           </div>
@@ -217,13 +154,25 @@ export default function LetterAvatars({ match }) {
       {profileLoading ? (
         <div
           style={{
-            width: "100%",
+            width: "350px",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            flexDirection: "column",
+            marginLeft: 80,
+            marginTop: 40,
           }}
         >
-          <CircularProgress />
+          <Skeleton variant="text" width={350} height={18} />
+          <Skeleton variant="text" width={350} height={18} />
+          <Skeleton variant="text" width={350} height={18} />
+          <Skeleton variant="text" width={350} height={18} />
+          <Skeleton variant="text" width={350} height={18} />
+          <Skeleton variant="text" width={350} height={18} />
+          <Skeleton variant="text" width={350} height={18} />
+          <Skeleton variant="text" width={350} height={18} />
+          <Skeleton variant="text" width={350} height={18} />
+          <Skeleton variant="text" width={350} height={18} />
         </div>
       ) : commentData2.length > 0 ? (
         commentData2.map((v, i) => {

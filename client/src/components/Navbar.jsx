@@ -66,7 +66,7 @@ export default function ButtonAppBar() {
             <NavLink
               to={
                 state.isHospital
-                  ? `/hospital/profile/${state.hospitalData._id}`
+                  ? `/hospital/dashboard/${state.hospitalData._id}`
                   : `/user/profile/${state.userData._id}`
               }
             >

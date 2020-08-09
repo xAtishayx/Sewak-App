@@ -8,6 +8,7 @@ require("./db/mongoose");
 const user = require("./routes/user");
 const hospital = require("./routes/hospital");
 const review = require("./routes/review");
+const booking = require("./routes/booking");
 const Hospital = require("./models/Hospital");
 const User = require("./models/User");
 const Review = require("./models/Review");
@@ -25,6 +26,7 @@ app.get("/", function(req, res) {
 app.use("/api/user", user);
 app.use("/api/hospital", hospital);
 app.use("/review", review);
+app.use("/api/booking", booking);
 
 app.get("/api/checkToken", withAuth, function(req, res) {
   const { email } = req;
