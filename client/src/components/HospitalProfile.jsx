@@ -104,12 +104,13 @@ export default function LetterAvatars({ match }) {
             alignItems: "center",
             flexDirection: "column",
             marginTop: 40,
+            marginLeft: 80
           }}
         >
           {/* <CircularProgress /> */}
-          <Skeleton variant="text" width={210} />
+          <Skeleton variant="text" width={350} />
           <Skeleton variant="circle" width={40} height={40} />
-          <Skeleton variant="rect" width={210} height={118} />
+          <Skeleton variant="rect" width={350} height={118} />
         </div>
       ) : (
         <Paper style={{ padding: 20 }}>
@@ -158,19 +159,20 @@ export default function LetterAvatars({ match }) {
             justifyContent: "center",
             alignItems: "center",
             flexDirection: "column",
+            marginLeft: 80,
             marginTop: 40,
           }}
         >
-          <Skeleton variant="text" width={210} height={18} />
-          <Skeleton variant="text" width={210} height={18} />
-          <Skeleton variant="text" width={210} height={18} />
-          <Skeleton variant="text" width={210} height={18} />
-          <Skeleton variant="text" width={210} height={18} />
-          <Skeleton variant="text" width={210} height={18} />
-          <Skeleton variant="text" width={210} height={18} />
-          <Skeleton variant="text" width={210} height={18} />
-          <Skeleton variant="text" width={210} height={18} />
-          <Skeleton variant="text" width={210} height={18} />
+          <Skeleton variant="text" width={350} height={18} />
+          <Skeleton variant="text" width={350} height={18} />
+          <Skeleton variant="text" width={350} height={18} />
+          <Skeleton variant="text" width={350} height={18} />
+          <Skeleton variant="text" width={350} height={18} />
+          <Skeleton variant="text" width={350} height={18} />
+          <Skeleton variant="text" width={350} height={18} />
+          <Skeleton variant="text" width={350} height={18} />
+          <Skeleton variant="text" width={350} height={18} />
+          <Skeleton variant="text" width={350} height={18} />
         </div>
       ) : commentData2.length > 0 ? (
         commentData2.map((v, i) => {
