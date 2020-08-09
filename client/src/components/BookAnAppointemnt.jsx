@@ -11,7 +11,7 @@ import AddIcCallIcon from "@material-ui/icons/AddIcCall";
 // import "@dat";
 import Grid from "@material-ui/core/Grid";
 import DateFnsUtils from "@date-io/date-fns";
-import MomentUtils from '@date-io/moment';
+import MomentUtils from "@date-io/moment";
 
 import {
   MuiPickersUtilsProvider,
@@ -20,7 +20,7 @@ import {
 } from "@material-ui/pickers";
 import Axios from "axios";
 
-export default function FormDialog({props}) {
+export default function FormDialog({ props }) {
   console.log(props);
   const [open, setOpen] = React.useState(false);
   const [name, setName] = React.useState("");
@@ -39,12 +39,22 @@ export default function FormDialog({props}) {
   const handleClickOpen = () => {
     setOpen(true);
   };
-
+  const submitBooking = () => {
+    Axios.post("/api/booking/new", {
+      bookingTime: time,
+      hospitalID: props.hospitalID,
+      userID: props.userID,
+      userName: name,
+      remark,
+      bookingDate: new Date(date),
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log("Error"));
+  };
   const handleClose = () => {
-    Axios.post("/api/booking/new",{bookingTime: time, hospitalID: props.hospitalID, userID: props.userID, userName: name, remark}).then(res => {
-
-      setOpen(false);
-    }).catch(err => console.log("Error"))
+    setOpen(false);
   };
   console.log(name, time, remark, selectedDate);
   return (
@@ -164,7 +174,13 @@ export default function FormDialog({props}) {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleClose} color="primary">
+          <Button
+            onClick={() => {
+              submitBooking();
+              handleClose();
+            }}
+            color="primary"
+          >
             Book Appointment
           </Button>
         </DialogActions>

@@ -4,13 +4,14 @@ const express = require("express");
 const router = express.Router();
 
 router.post("/new", function (req, res) {
-  const { bookingTime, hospitalID, userID, userName, remark } = req.body;
+  const { bookingTime, hospitalID, userID, userName, remark, bookingDate } = req.body;
   const booking = new Booking({
     bookingTime,
     hospitalID,
     userID,
     userName,
-    remark
+    remark,
+    bookingDate
   });
 
   booking.save(function (err, doc) {

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import { Paper, Icon } from "@material-ui/core";
 import { Typography, TextField } from "@material-ui/core";
-import { Rating } from "@material-ui/lab";
+import { Rating, Skeleton } from "@material-ui/lab";
 import { Button } from "@material-ui/core";
 import Upvote from "@material-ui/icons/ArrowUpward";
 import Downvote from "@material-ui/icons/ArrowDownward";
@@ -98,13 +98,18 @@ export default function LetterAvatars({ match }) {
       {profileLoading ? (
         <div
           style={{
-            width: "100%",
+            width: "350px",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            flexDirection: "column",
+            marginTop: 40,
           }}
         >
-          <CircularProgress />
+          {/* <CircularProgress /> */}
+          <Skeleton variant="text" width={210} />
+          <Skeleton variant="circle" width={40} height={40} />
+          <Skeleton variant="rect" width={210} height={118} />
         </div>
       ) : (
         <Paper style={{ padding: 20 }}>
@@ -131,7 +136,14 @@ export default function LetterAvatars({ match }) {
               {profile.data.description}
             </Typography>
             <div className="profile-btn">
-              <BookAnAppointment props={{hospitalID: match.params.id, userID: state.userData._id}} />
+              {state.isHospital ? null : (
+                <BookAnAppointment
+                  props={{
+                    hospitalID: match.params.id,
+                    userID: state.userData ? state.userData._id : "",
+                  }}
+                />
+              )}
               <HospitalInfo props={profile} />
             </div>
           </div>
@@ -141,13 +153,24 @@ export default function LetterAvatars({ match }) {
       {profileLoading ? (
         <div
           style={{
-            width: "100%",
+            width: "350px",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            flexDirection: "column",
+            marginTop: 40,
           }}
         >
-          <CircularProgress />
+          <Skeleton variant="text" width={210} height={18} />
+          <Skeleton variant="text" width={210} height={18} />
+          <Skeleton variant="text" width={210} height={18} />
+          <Skeleton variant="text" width={210} height={18} />
+          <Skeleton variant="text" width={210} height={18} />
+          <Skeleton variant="text" width={210} height={18} />
+          <Skeleton variant="text" width={210} height={18} />
+          <Skeleton variant="text" width={210} height={18} />
+          <Skeleton variant="text" width={210} height={18} />
+          <Skeleton variant="text" width={210} height={18} />
         </div>
       ) : commentData2.length > 0 ? (
         commentData2.map((v, i) => {
