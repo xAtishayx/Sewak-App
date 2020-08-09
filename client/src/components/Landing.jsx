@@ -43,16 +43,6 @@ const Dashboard = () => {
           Welcome to the Sewak!
         </Typography>
       </div>
-      <div className="dashboard-wrapper">
-        <HMap data={data} loading={loading} />
-        <div className="hospital-list-map">
-          {/* <Paper variant="elevation"> */}
-          {data.map((v, i) => {
-            return <HospitalCards props={{ data: v }} key={i} />;
-          })}
-          {/* </Paper> */}
-        </div>
-      </div>
       <div
         style={{
           display: "flex",
@@ -62,9 +52,9 @@ const Dashboard = () => {
           paddingBottom: 80,
         }}
       >
-        <Link to="/hospital/all">
+        <Link to="/map">
           <Button variant="outlined" color="primary">
-            View All Hospitals
+            Open Map
           </Button>
         </Link>
       </div>

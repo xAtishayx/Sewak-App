@@ -90,13 +90,12 @@ a {
 }
 .dashboard-wrapper {
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  height: 78vh;
+  height: 100vh;
 }
 .hospital-list-map {
-  height: 500px;
+  height: 100vh;
   overflow-y: scroll;
+  width: 450px;
 }
 .dashboard-outer-wrapper {
   margin-top: 60px;
@@ -104,4 +103,11 @@ a {
 }
 .booking-body-element {
   padding: 5px;
+}
+
+.hospital-map-card{
+  max-width: 345px;
+  border: 1px solid #ccc;
+  margin: 10px auto;
+  border-radius: 10px;
 }

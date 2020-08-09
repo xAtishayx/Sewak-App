@@ -45,7 +45,7 @@ export default function HospitalCards({ props }) {
 
   return (
     <Card
-      className={classes.root}
+      className={"hospital-map-card"}
       style={{ width: 345 }}
       width="345px"
       style={{ flexBasis: "33.33%" }}
@@ -75,7 +75,7 @@ export default function HospitalCards({ props }) {
       <CardActions>
         <Link to={`/hospital/profile/${data._id}`}>
           <Button variant="outlined" color="primary" endIcon={<InfoIcon />}>
-            View Detail
+            Detail
           </Button>
         </Link>
         <a href={`tel:${data.telephone}`}>
