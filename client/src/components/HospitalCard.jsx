@@ -45,7 +45,7 @@ export default function HospitalCards({ props }) {
 
   return (
     <Card
-      className={classes.root}
+      className={"hospital-map-card"}
       style={{ width: 345 }}
       width="345px"
       style={{ flexBasis: "33.33%" }}
